@@ -8,8 +8,6 @@ Kaksi verkkosivua, jotka näyttävät reaaliaikaista tietoa Tampereelle johtavie
 - **liikennekamera.html**: Näyttää reaaliaikaisen kuvan Tampereelle johtavasta tieliikennekamerasta.
 - **junat.html**: Näyttää ajankohtaiset junien aikataulut Helsingistä Tampereelle.
 
-## Käyttöohjeet
-
 1. **Index-sivu (index.html)**:
    - Tervetuloa-sivu, joka sisältää lyhyen kuvauksen sivuston sisällöstä.
    - Sisältää navigointipainikkeet, joista pääsee liikennekamerat- ja junasivuille.
@@ -23,7 +21,7 @@ Kaksi verkkosivua, jotka näyttävät reaaliaikaista tietoa Tampereelle johtavie
    - Näyttää junan numeron, tyypin, lähtöajan Helsingistä sekä saapumisajan Tampereelle.
    - Sisältää napin, jolla voi palata takaisin pääsivulle.
 
-## Käyttö
+## Käyttöohjeet
 
 1. Avaa `index.html` tiedosto selaimessasi.
 2. Käytä navigointipainikkeita päästäksesi liikenne- ja junasivuille.
