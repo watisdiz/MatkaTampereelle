@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liikennekamerat - Tampere</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #666;
+        }
+        .nav-container {
+            margin-top: 30px;
+        }
+         .nav-button {
+            margin: 5px;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .nav-button:hover {
+            background-color: #003d80;
+        }
+        .camera-container {
+            margin-top: 20px;
+        }
+        .camera-image {
+            margin-bottom: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sivun pääotsikko, joka kertoo sivun aiheesta -->
+    <h1>Autolla Tampereelle</h1>
+    <!-- Kuvaileva teksti, joka antaa käyttäjälle lisätietoa sivun sisällöstä -->
+    <p>Minkälainen keli siellä on?</p>
+
+    <!-- Kamerakuvan kontaineri, johon sijoitetaan aikaleima ja kuva -->
+    <div class="camera-container" id="camera-container">
+        <!-- Aikaleima, joka näyttää kuvan ottamisajan -->
+        <p>2024-09-02T19:11:04Z</p>
+        <!-- Liikennekameran kuva, joka näyttää reaaliaikaisen tilanteen valitulta tieltä -->
+        <img src="https://weathercam.digitraffic.fi/C0450701.jpg" alt="Tie C0450701 - Tampere, Lakalaiva" class="camera-image">
+    </div>
+    
+    <!-- Navigointikontaineri, joka sisältää takaisin-navigointinapin -->
+    <div class="nav-container">
+        <!-- Takaisin-nappi, joka vie käyttäjän index.html-sivulle -->
+        <a href="index.html" class="nav-button">Takaisin</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junat Tampereelle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #666;
+        }
+        .nav-container {
+            margin-top: 30px;
+        }
+        .nav-button {
+            margin: 5px;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .nav-button:hover {
+            background-color: #003d80;
+        }
+         .train-container {
+            margin-top: 20px;
+        }
+        .train-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+         .train-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+         .train-info {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sivun pääotsikko, joka kertoo sivun aiheesta -->
+    <h1>Mennäänkö junalla Tampereelle?</h1>
+    <!-- Kuvaileva teksti, joka antaa käyttäjälle lisätietoa sivun sisällöstä -->
+    <p>Kuinkahan usein junia menee?</p>
+
+    <!-- Junien tiedot tulevat tähän JavaScriptin avulla -->
+    <div class="train-container" id="train-container">
+        <!-- JavaScript luo ja lisää tähän elementtiin junien aikataulut -->
+    </div>
+    
+    <!-- Navigointikontaineri, joka sisältää takaisin-navigointinapin -->
+    <div class="nav-container">
+        <!-- Takaisin-nappi, joka vie käyttäjän index.html-sivulle -->
+        <a href="index.html" class="nav-button">Takaisin</a>
+    </div>
+
+    <script>
+        // API-URL Helsingin lähtevien junien hakuun
+        const apiUrl = 'https://rata.digitraffic.fi/api/v1/live-trains/station/HKI?departing_trains=100&include_nonstopping=false';
+
+        // Haetaan data API:sta käyttämällä fetch-komentoa
+        fetch(apiUrl)
+            .then(response => response.json())  // Muunnetaan saatu vastaus JSON-muotoon
+            .then(data => {
+                const trainContainer = document.getElementById('train-container');  // Haetaan kontainerielementti, johon junien tiedot sijoitetaan
+
+                // Käydään läpi jokainen juna, joka on saatu JSON-datasta
+                for (let i = 0; i < data.length; i++) {
+                    const train = data[i];
+                    let tampereArrival = null;  // Muuttuja, johon tallennetaan Tampereelle saapumisaika
+                    let departureTime = null;   // Muuttuja, johon tallennetaan Helsingistä lähtöaika
+
+                    // Käydään läpi junan aikataulurivit
+                    for (let j = 0; j < train.timeTableRows.length; j++) {
+                        const row = train.timeTableRows[j];
+                        // Tarkistetaan, onko rivi Tampereen saapumisesta (ARRIVAL)
+                        if (row.stationShortCode === "TPE" && row.type === "ARRIVAL") {
+                            tampereArrival = row.scheduledTime;  // Tallennetaan saapumisaika
+                        }
+                        // Tarkistetaan, onko rivi Helsingin lähdöstä (DEPARTURE)
+                        if (row.stationShortCode === "HKI" && row.type === "DEPARTURE") {
+                            departureTime = row.scheduledTime;  // Tallennetaan lähtöaika
+                        }
+                    }
+
+                    // Jos saapumisaika Tampereelle ja junan kategoria on "Long-distance", luodaan elementit junan tiedoille
+                    if (tampereArrival && train.trainCategory === "Long-distance") {
+                        const trainItem = document.createElement('div');
+                        trainItem.className = 'train-item';  // Luodaan elementti junan tiedoille
+
+                        const trainTitle = document.createElement('div');
+                        trainTitle.className = 'train-title';
+                        trainTitle.textContent = `Juna nro ${train.trainNumber}`;  // Näytetään junan numero
+
+                        const trainInfo = document.createElement('div');
+                        trainInfo.className = 'train-info';
+                        trainInfo.textContent = `Junan tyyppi: ${train.trainType}`;  // Näytetään junan tyyppi
+
+                        const departureInfo = document.createElement('div');
+                        departureInfo.className = 'train-info';
+                        // Näytetään lähtö- ja saapumisajat luettavassa muodossa
+                        departureInfo.textContent = `Lähtee Helsingistä ${departureTime.substr(0, 10)} kello: ${departureTime.substr(11, 5)}. Saapuu Tampereelle ${tampereArrival.substr(0, 10)} kello: ${tampereArrival.substr(11, 5)}`;
+
+                        // Lisätään otsikko, junan tiedot ja aikataulu kontaineriin
+                        trainItem.appendChild(trainTitle);
+                        trainItem.appendChild(trainInfo);
+                        trainItem.appendChild(departureInfo);
+
+                        trainContainer.appendChild(trainItem);  // Lisätään luotu elementti trainContaineriin
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Virhe haettaessa junien aikatauluja:', error);  // Tulostaa virheilmoituksen, jos datan haku epäonnistuu
+            });
+    </script>
+</body>
+</html>
