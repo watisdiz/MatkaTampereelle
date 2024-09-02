@@ -23,7 +23,7 @@ Kaksi verkkosivua, jotka näyttävät reaaliaikaista tietoa Tampereelle johtavie
    - Näyttää junan numeron, tyypin, lähtöajan Helsingistä sekä saapumisajan Tampereelle.
    - Sisältää napin, jolla voi palata takaisin pääsivulle.
 
-## Asennus ja Käyttö
+## Käyttö
 
 1. Avaa `index.html` tiedosto selaimessasi.
 2. Käytä navigointipainikkeita päästäksesi liikenne- ja junasivuille.
