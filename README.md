@@ -36,5 +36,5 @@ Kaksi verkkosivua, jotka näyttävät reaaliaikaista tietoa Tampereelle johtavie
 
 ### Digitraffic API
 
-- **Liikennekamerat**: Kelikameroiden kuvat haetaan suoraan URL-osoitteesta `https://weathercam.digitraffic.fi/C0450701.jpg`.
-- **Junatiedot**: Junien aikataulutiedot haetaan käyttämällä Digitrafficin API:a osoitteesta `https://rata.digitraffic.fi/api/v1/live-trains/station/HKI?departing_trains=100&include_nonstopping=false`.
+- **Liikennekamerat**: Kelikameroiden kuvat haetaan suoraan [URL-osoitteesta](https://weathercam.digitraffic.fi/C0450701.jpg).
+- **Junatiedot**: Junien aikataulutiedot haetaan käyttämällä Digitrafficin [API:a osoitteesta](https://rata.digitraffic.fi/api/v1/live-trains/station/HKI?departing_trains=100&include_nonstopping=false).
