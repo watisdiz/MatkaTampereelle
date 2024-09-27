@@ -51,4 +51,7 @@ Tämä projekti koostuu kahdesta verkkosivusta, jotka näyttävät reaaliaikaist
   - [C0450704](https://weathercam.digitraffic.fi/C0450704.jpg)
   - [C0450709](https://weathercam.digitraffic.fi/C0450709.jpg)
   
+  - Kamerakuvien aikaleimat ja muut tiedot haetaan API-datasta, joka löytyy osoitteesta:
+    [https://tie.digitraffic.fi/api/weathercam/v1/stations](https://tie.digitraffic.fi/api/weathercam/v1/stations)
+  
 - **Junatiedot**: Junien aikataulutiedot haetaan käyttämällä Digitrafficin [junaliikenteen API:a](https://rata.digitraffic.fi/api/v1/live-trains/station/HKI?departing_trains=100&include_nonstopping=false).
