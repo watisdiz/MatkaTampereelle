@@ -19,7 +19,7 @@
         .nav-container {
             margin-top: 30px;
         }
-         .nav-button {
+        .nav-button {
             margin: 5px;
             display: inline-block;
             padding: 10px 15px;
@@ -39,26 +39,69 @@
             max-width: 100%;
             height: auto;
         }
+        .camera-timestamp {
+            font-size: 14px;
+            color: #444;
+        }
     </style>
 </head>
 <body>
-    <!-- Sivun pääotsikko, joka kertoo sivun aiheesta -->
     <h1>Autolla Tampereelle</h1>
-    <!-- Kuvaileva teksti, joka antaa käyttäjälle lisätietoa sivun sisällöstä -->
     <p>Minkälainen keli siellä on?</p>
 
     <!-- Kamerakuvan kontaineri, johon sijoitetaan aikaleima ja kuva -->
     <div class="camera-container" id="camera-container">
-        <!-- Aikaleima, joka näyttää kuvan ottamisajan -->
-        <p>2024-09-02T19:11:04Z</p>
-        <!-- Liikennekameran kuva, joka näyttää reaaliaikaisen tilanteen valitulta tieltä -->
-        <img src="https://weathercam.digitraffic.fi/C0450701.jpg" alt="Tie C0450701 - Tampere, Lakalaiva" class="camera-image">
     </div>
-    
-    <!-- Navigointikontaineri, joka sisältää takaisin-navigointinapin -->
+
     <div class="nav-container">
-        <!-- Takaisin-nappi, joka vie käyttäjän index.html-sivulle -->
         <a href="index.html" class="nav-button">Takaisin</a>
     </div>
+
+    <script>
+        // Liikennekamerakuvien tiedot (kuvalinkit)
+        const cameraData = [
+            { id: 'C0450701', url: 'https://weathercam.digitraffic.fi/C0450701.jpg' },
+            { id: 'C0450702', url: 'https://weathercam.digitraffic.fi/C0450702.jpg' },
+            { id: 'C0450703', url: 'https://weathercam.digitraffic.fi/C0450703.jpg' },
+            { id: 'C0450704', url: 'https://weathercam.digitraffic.fi/C0450704.jpg' },
+            { id: 'C0450709', url: 'https://weathercam.digitraffic.fi/C0450709.jpg' }
+        ];
+
+        // Kontaineri, johon kuvat ja aikaleimat lisätään
+        const cameraContainer = document.getElementById('camera-container');
+
+        // Hakee tiedot API:sta
+        fetch('https://tie.digitraffic.fi/api/weathercam/v1/stations/C04507/data')
+            .then(response => response.json())
+            .then(data => {
+                const cameraPresets = data.presets; // Kamerakuvat ja mitattu aika API:sta
+
+                // Käydään läpi kamerakuvat ja lisätään ne sivulle
+                cameraData.forEach(camera => {
+                    // Etsitään vastaava preset (mitattu aika) API-datasta
+                    const matchedPreset = cameraPresets.find(preset => preset.id === camera.id);
+
+                    if (matchedPreset) {
+                        // Luodaan elementti aikaleimalle
+                        const timestampElement = document.createElement('p');
+                        timestampElement.className = 'camera-timestamp';
+                        timestampElement.textContent = `Mitattu aika: ${matchedPreset.measuredTime}`;
+
+                        // Luodaan elementti kuvalle
+                        const imageElement = document.createElement('img');
+                        imageElement.src = camera.url;
+                        imageElement.alt = `Liikennekamera ${camera.id}`;
+                        imageElement.className = 'camera-image';
+
+                        // Lisätään aikaleima ja kuva kontaineriin
+                        cameraContainer.appendChild(timestampElement);
+                        cameraContainer.appendChild(imageElement);
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Virhe haettaessa liikennekameran tietoja:', error);
+            });
+    </script>
 </body>
 </html>
